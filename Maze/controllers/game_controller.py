@@ -4,6 +4,7 @@ from pygame.locals import *
 from controllers.player_controller import PlayerController
 # import maze
 from controllers.maze_controller import MazeController 
+from controllers.end_controller import EndController
 
 # -- CONTROLLERS --
 class GameController:
@@ -13,7 +14,9 @@ class GameController:
         self._window = None
         self._image = None
         self._block = None
-
+        self._name = 'GUEST'
+        self.start_time = pygame.time.get_ticks()/1000 # in seconds
+        self.end_time = None
         self.maze = MazeController()
 
         self.TILE_WIDTH = 50
@@ -45,6 +48,9 @@ class GameController:
         self.maze.draw(self._window, self._block, self.TILE_WIDTH, self.TILE_HEIGHT)
         pygame.display.flip()
         
+    def set_player_name(self, name):
+        self._name = name
+        
     def loop(self):
         if self.run() == False:
             self._running = False
@@ -62,6 +68,17 @@ class GameController:
                 elif event.type == KEYDOWN:
                     if event.key in (K_ESCAPE, K_q):
                         self._running = False
+                        
+            # the game has been completed
+            if self.player_controller.end:
+                self.end_time = pygame.time.get_ticks()/1000
+                print("start time: ", self.start_time)
+                print("end time: ", self.end_time)
+                time = self.end_time - self.start_time
+                print(time)
+                end_contoller = EndController(time, self._name)
+                end_contoller.loop()
+                exit()
             
             # -- KEYBOARD CONTROLLER -- 
             #NOTE: changed to use move method
@@ -74,5 +91,4 @@ class GameController:
                 self.player_controller.move('LEFT')
             elif keypress[K_RIGHT]:
                 self.player_controller.move('RIGHT')
-            
             self.render_screen()

@@ -1,5 +1,4 @@
 from models.player import Player
-from controllers.end_controller import EndController
 
 class PlayerController():
     def __init__(self, maze_, tile_width, tile_height):
@@ -8,6 +7,7 @@ class PlayerController():
         self._maze = maze_
         self.tile_width = tile_width
         self.tile_height = tile_height
+        self.end = False # Turns to True if game is won
 
     def pickup(self, coordinates):
         self.player._backpack += 1
@@ -37,9 +37,7 @@ class PlayerController():
                     self.pickup(want_to_move)
                 # exit condition
                 if (want_to_move == self._maze.end_coordinates) and self.player._backpack == 4:
-                    end_contoller = EndController()
-                    end_contoller.loop()
-                    exit()
+                    self.end = True
                 self.player.rect.y += self.tile_height
                 
         elif direction == 'LEFT':
@@ -55,3 +53,4 @@ class PlayerController():
                 if self._maze.is_item(want_to_move):
                     self.pickup(want_to_move)
                 self.player.rect.x += self.tile_width
+    

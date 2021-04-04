@@ -1,8 +1,7 @@
 # API
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from models.score_manager import ScoreManager
 from models.score import Score
-
 
 app = Flask(__name__)
 score_manager = ScoreManager()
@@ -25,12 +24,14 @@ def add_new_score():
     """
     try:
         # -- Get the JSON data of the request, containing a new object to add
+
         data = request.get_json()
-        new_score = Score(data['name'], data['score'])
+        new_score = Score(data['name'], int(data['score']))
         score_manager.add_score(new_score)
         
         return '', 204
-    except:
+    
+    except:  # This is the correct syntax
         return "Error", 400
 
 @app.route('/api/list', methods=['DELETE'])

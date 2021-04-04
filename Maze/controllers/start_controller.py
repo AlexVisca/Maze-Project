@@ -10,21 +10,23 @@ class StartController:
         self._window = None
         self._image = None
         self._game = GameController()
+        self._name = ''
+        self.high_scores = self.get_highscores()
         
     
     def run(self):
         pygame.init()
-        self.get_highscores()
         self._window = pygame.display.set_mode((400, 400))
         self._font = pygame.font.SysFont('arial', 18)
     
     def render_screen(self):
         colour = (255, 255, 255)
-        text = self._font.render('Press SPACE to start' , True , colour)
+        text = self._font.render('Press ENTER to start' , True , colour)
         text_rect = text.get_rect()
         text_rect.center = (400 // 2, 400 // 2)
         self._window.blit(text, text_rect)
         self.render_highscores()
+        self.render_input()
         pygame.display.flip()
     
     def loop(self):
@@ -39,10 +41,15 @@ class StartController:
                 elif event.type == KEYDOWN:
                     if event.key in (K_ESCAPE, K_q):
                         self._running = False
-                    if event.key == K_SPACE:
+                    elif event.key == K_RETURN:
                         print("PRESSED")
+                        self._game.set_player_name(self._name)
                         self._game.loop()
                         exit()
+                    elif event.key == K_BACKSPACE:
+                        self._name = self._name[:-1]
+                    else:
+                        self._name += event.unicode
          
             self.render_screen()
         
@@ -54,11 +61,21 @@ class StartController:
         else:
             print("failed to get high scores")
             return []
-    
+        
+    def render_input(self):
+        input_box = pygame.Rect(100, 100, 140, 32)
+        colour = (255, 255, 255)
+        center = (400 // 2, 400 // 2)
+        text = "enter name: " + self._name
+        txt_surface = self._font.render( text, self._name, True, colour)
+        text_rect = txt_surface.get_rect()
+        text_rect.center = (center[0], center[1] -25)
+        width = max(200, txt_surface.get_width()+10)
+        input_box.w = width
+        self._window.blit(txt_surface, text_rect)
+        
     def render_highscores(self):
-        
-        high_scores = self.get_highscores()
-        
+                
         center = (400 // 2, 400 // 2)
         colour = (255, 255, 255)
         
@@ -69,15 +86,15 @@ class StartController:
         self._window.blit(text, text_rect)
         
         # trim highscore list to be max len 3
-        if len(high_scores) > 3:
-            high_scores = high_scores[:3]
+        if len(self.high_scores) > 3:
+            self.high_scores = self.high_scores[:3]
         
         # render each highscore 
-        for i in range(len(high_scores)):
-            score = high_scores[i]
+        for i in range(len(self.high_scores)):
+            score = self.high_scores[i]
             score_text = score["name"] + ": " + str(score["score"])
             text = self._font.render(score_text , True , colour)
             text_rect = text.get_rect()
-            text_rect.center = (center[0], center[1] + ((i+1)*50))
+            text_rect.center = (center[0], center[1] + ((i+2)*25))
             # text_rect.center = (400 // 2, 300)
             self._window.blit(text, text_rect)
