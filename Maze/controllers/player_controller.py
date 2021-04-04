@@ -1,5 +1,6 @@
 from models.player import Player
-    
+from controllers.end_controller import EndController
+
 class PlayerController():
     def __init__(self, maze_, tile_width, tile_height):
         start_coords = maze_.start_coordinates()
@@ -36,6 +37,8 @@ class PlayerController():
                     self.pickup(want_to_move)
                 # exit condition
                 if (want_to_move == self._maze.end_coordinates) and self.player._backpack == 4:
+                    end_contoller = EndController()
+                    end_contoller.loop()
                     exit()
                 self.player.rect.y += self.tile_height
                 
