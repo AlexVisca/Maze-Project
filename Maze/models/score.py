@@ -1,7 +1,12 @@
+import pygame
+
 class Score:
     def __init__(self):
         self._name = "GUEST" # default name
         self._score = 100 # default score
+        # to calculate score
+        self._start_time = pygame.time.get_ticks()/1000 # in seconds
+        self._end_time = None
     
     def __dict__(self):
         """ Provides a dictionary representation of score instance
@@ -26,6 +31,13 @@ class Score:
     
     def get_score(self):
         return self._score
+    
+    def get_start_time(self):
+        return self._start_time
+    
+    def end_timer(self):
+        self._end_time = pygame.time.get_ticks()/1000
+        self._score = self._end_time - self._start_time
         
         
         

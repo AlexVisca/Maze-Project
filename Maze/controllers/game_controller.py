@@ -25,11 +25,7 @@ class GameController:
         # The maze is a graph of 'Tiles' each tile is 50pixels by 50pixels
         self.TILE_WIDTH = 50
         self.TILE_HEIGHT = 50
-        #NOTE: want to put in score instead
-        # When GameController is initialized the game has begun so we start the timer
-        self.start_time = pygame.time.get_ticks()/1000 # in seconds
-        self.end_time = None
-        
+      
         self._score = Score()
         
         self.maze = MazeController(self.TILE_WIDTH, self.TILE_HEIGHT)
@@ -79,15 +75,13 @@ class GameController:
     def end_game(self):
         """Ends the game buy starting the End Controller
         """
-        self.end_time = pygame.time.get_ticks()/1000
-        time = self.end_time - self.start_time
-        self._score.set_score(time)
+        self._score.end_timer()
         end_contoller = EndController(self._score)
         end_contoller.loop()
         exit()
     
     def display_timer(self, window, font):
-        text = "Timer: {}ms".format(pygame.time.get_ticks() - self.start_time)
+        text = "Timer: {}ms".format(pygame.time.get_ticks() - self._score.get_start_time())
         colour = (255, 255, 255)
         text_surface = font.render(text, True, colour)
         text_rect = text_surface.get_rect()
