@@ -1,10 +1,10 @@
 XXXXPXXXXXXXXXX
 X  X          X
-X  XXXX       X
-X     X       X
-X  X  X       X
-X  X  X       X
-X  XXXX       X
+X  XXXXXXXXX  X     
 X             X
+X XXXXXXXXXXXXX          
 X             X
-XXXXEXXXXXXXXXX
+XXXXXXXXXXXXX X        
+X   X   X   X X
+X X   X   X   X
+XEXXXXXXXXXXXXX

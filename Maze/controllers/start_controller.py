@@ -3,6 +3,9 @@ from pygame.locals import *
 from controllers.game_controller import GameController
 import requests
 
+"""
+Start Controller to generate the start screen
+"""
 class StartController:
     
     def __init__(self):
@@ -42,27 +45,38 @@ class StartController:
                     if event.key in (K_ESCAPE, K_q):
                         self._running = False
                     elif event.key == K_RETURN:
-                        print("PRESSED")
-                        self._game.set_player_name(self._name)
+                        if self._name != '': #Otherwise "GUEST" is set as default name
+                            self._game.set_player_name(self._name)
+                        # start game!
                         self._game.loop()
                         exit()
+                    # when backspace is pressed, remove character from name
                     elif event.key == K_BACKSPACE:
                         self._name = self._name[:-1]
+                    # update name string with character
                     else:
                         self._name += event.unicode
          
             self.render_screen()
         
     def get_highscores(self):
+        """Get highscores from server
+
+        Returns:
+            list of dicts: response from server a list of dictionaires that have name and scores
+        """
         response = requests.get('http://localhost:5000/api/list')
         if response.status_code == 200:
             response_dict = response.json()
             return response_dict.get("scores")
         else:
-            print("failed to get high scores")
+            print("failed to get high scores") # instead of raising error, just dont show highscores
             return []
         
     def render_input(self):
+        """
+        Collect user name in an input box
+        """
         input_box = pygame.Rect(100, 100, 140, 32)
         colour = (255, 255, 255)
         center = (400 // 2, 400 // 2)

@@ -5,9 +5,7 @@ from controllers.start_controller import StartController
 class App():
     def __init__(self):
         self._start = StartController()
-        #self._game = GameController()
     
     def run(self):
-        # self._game.loop()
         self._start.loop()
         

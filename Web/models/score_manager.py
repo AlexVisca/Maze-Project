@@ -54,5 +54,7 @@ class ScoreManager:
         for item in self._scores.values():
             score_dict = item.__dict__
             list_scores.append(score_dict)
+        
+        # Sort the list of dictionaries by the value of the score
         sorted_list = sorted(list_scores, key=lambda k: k['score'])
         return sorted_list

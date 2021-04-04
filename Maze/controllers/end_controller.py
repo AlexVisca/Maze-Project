@@ -1,19 +1,27 @@
 import pygame
 from pygame.locals import *
-# from controllers.game_controller import GameController
 import requests
-# from controllers.start_controller import StartController
 
+"""
+The EndController controls the end screen which appears 
+when the player has beat the game
+"""
 class EndController:
     
     def __init__(self, time, name):
+        """Initalize an instance of the end controller
+
+        Args:
+            time (float): The amount of time it took for the player to complete the game
+            name (string): The name of the player
+        """
         self._running = True
         self._window = None
         self._image = None
         self.time = time
         self.name = name
-        self.put_highscore()
-        # self._start = StartController()
+        # Update server with the score
+        self.add_score_to_server()
         
     
     def run(self):
@@ -25,6 +33,7 @@ class EndController:
         colour = (255, 255, 255)
         text = self._font.render('Press ENTER to exit' , True , colour)
         text_rect = text.get_rect()
+        # Hardcoded screen size and hardcoded center of screen
         text_rect.center = (400 // 2, 400 // 2)
         self._window.blit(text, text_rect)
         self.render_score()
@@ -40,16 +49,15 @@ class EndController:
                 if event.type == QUIT:
                     self._running = False
                 elif event.type == KEYDOWN:
-                    if event.key in (K_ESCAPE, K_q):
+                    if event.key in (K_ESCAPE, K_q) or event.key == K_RETURN:
                         self._running = False
-                    if event.key == K_RETURN:
-                        print("PRESSED")
-                        # self._start.loop() # possibly .run()
-                        exit()
-         
+                    
             self.render_screen()
         
-    def put_highscore(self):
+    def add_score_to_server(self):
+        """
+        Send the players name and score to the server/api
+        """
         response = requests.put(
             'http://localhost:5000/api/new', 
             json={
@@ -57,11 +65,9 @@ class EndController:
                 'score': self.time
             }
         )
-        if response.status_code == 204:
-            return True
-        else:
+        if response.status_code != 204: # if the server did not accept the new score
             print("failed to update scoreboard")
-            return False
+            
     
     def render_score(self):
         center = (400 // 2, 400 // 2)
