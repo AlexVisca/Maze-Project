@@ -23,9 +23,7 @@ class GameController:
         # The maze is a graph of 'Tiles' each tile is 50pixels by 50pixels
         self.TILE_WIDTH = 50
         self.TILE_HEIGHT = 50
-        
-        # Default name if the name is never set from the start screen
-        self._name = 'GUEST'
+        self._name = 'GUEST'        
         # When GameController is initialized the game has begun so we start the timer
         self.start_time = pygame.time.get_ticks()/1000 # in seconds
         self.end_time = None
@@ -47,23 +45,6 @@ class GameController:
     def get_tile_dimensions(self):
         return (self.TILE_WIDTH, self.TILE_HEIGHT)
     
-    # def run(self):
-    #     pygame.init()
-    #     self._window = pygame.display.set_mode((self.__WIDTH, self.__HEIGHT)) #NOTE: changed to variables
-    #     self._font = pygame.font.SysFont('arial', 18)
-    #     self._clock = pygame.time.Clock()
-
-    #     # -- Block Image --
-    #     self._block = pygame.Surface((self.TILE_WIDTH, self.TILE_HEIGHT)) #NOTE: changed to variables
-    #     self._block.fill((255, 0, 0))
-    #     self._block.convert()
-        
-    # def render_screen(self):
-    #     self._window.fill((0, 0, 0))
-    #     self._window.blit(self.player.image, self.player.rect)
-    #     self.maze.draw(self._window, self._block)
-    #     pygame.display.flip()
-        
     def set_player_name(self, name):
         """Set the players name, if this is never called players will be called "GUEST"
 

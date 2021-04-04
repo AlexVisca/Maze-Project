@@ -14,7 +14,6 @@ class StartController:
         self._running = True
         self._window = None
         self._image = None
-        self._game = GameController()
         self._game_view = GameView()
         self._name = ''
         self.high_scores = self.get_highscores()
@@ -49,7 +48,8 @@ class StartController:
                         self._running = False
                     elif event.key == K_RETURN:
                         if self._name != '': #Otherwise "GUEST" is set as default name
-                            self._game.set_player_name(self._name)
+                            self._game_view._game.set_player_name(self._name)
+                        
                         # start game!
                         self._game_view.start_game()
                         exit()

@@ -58,6 +58,7 @@ class EndController:
         """
         Send the players name and score to the server/api
         """
+        
         response = requests.put(
             'http://localhost:5000/api/new', 
             json={

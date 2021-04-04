@@ -40,10 +40,7 @@ class GameView:
         while self._running:
             self._clock.tick(20)
             self._window.fill((0, 0, 0))
-            
-            # text = "Timer: {}ms".format(pygame.time.get_ticks())
-            # text_surface = self._font.render(text, True, (255, 255, 255))
-            # self._window.blit(text_surface, (0, 0))
+ 
             
             for event in pygame.event.get():
                 if event.type == QUIT:
