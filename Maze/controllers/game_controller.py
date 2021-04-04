@@ -4,8 +4,10 @@ from pygame.locals import *
 from controllers.player_controller import PlayerController
 from controllers.maze_controller import MazeController 
 from controllers.end_controller import EndController
+# Model imports
+from models.score import Score
 
-# -- CONTROLLERS --
+# -- CONTROLLER --
 """
 Game Controller is the master Controller of the game. It creates an instance of the MazeController
 and the PlayerController and controls how the Maze and Player interact
@@ -23,10 +25,12 @@ class GameController:
         # The maze is a graph of 'Tiles' each tile is 50pixels by 50pixels
         self.TILE_WIDTH = 50
         self.TILE_HEIGHT = 50
-        self._name = 'GUEST'        
+        #NOTE: want to put in score instead
         # When GameController is initialized the game has begun so we start the timer
         self.start_time = pygame.time.get_ticks()/1000 # in seconds
         self.end_time = None
+        
+        self._score = Score()
         
         self.maze = MazeController(self.TILE_WIDTH, self.TILE_HEIGHT)
         
@@ -51,7 +55,7 @@ class GameController:
         Args:
             name (string): The name of the player
         """
-        self._name = name
+        self._score.set_name(name)
     
     def keypress(self):
         keypress = pygame.key.get_pressed()
@@ -77,7 +81,8 @@ class GameController:
         """
         self.end_time = pygame.time.get_ticks()/1000
         time = self.end_time - self.start_time
-        end_contoller = EndController(time, self._name)
+        self._score.set_score(time)
+        end_contoller = EndController(self._score)
         end_contoller.loop()
         exit()
     

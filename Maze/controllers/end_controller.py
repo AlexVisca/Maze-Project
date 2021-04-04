@@ -8,7 +8,7 @@ when the player has beat the game
 """
 class EndController:
     
-    def __init__(self, time, name):
+    def __init__(self, score):
         """Initalize an instance of the end controller
 
         Args:
@@ -18,8 +18,7 @@ class EndController:
         self._running = True
         self._window = None
         self._image = None
-        self.time = time
-        self.name = name
+        self._score = score
         # Update server with the score
         self.add_score_to_server()
         
@@ -61,10 +60,7 @@ class EndController:
         
         response = requests.put(
             'http://localhost:5000/api/new', 
-            json={
-                'name': self.name,
-                'score': self.time
-            }
+            json=self._score.__dict__()
         )
         if response.status_code != 204: # if the server did not accept the new score
             print("failed to update scoreboard")
@@ -75,7 +71,7 @@ class EndController:
         colour = (255, 255, 255)
         
         # Render High score text
-        score = self.time
+        score = self._score.get_score()
         text = self._font.render("Your score: " + str(score) , True , colour)
         text_rect = text.get_rect()
         text_rect.center = (center[0], center[1] + 25)
