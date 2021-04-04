@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Score:
     """ Simple class to represent a score in a game """
 
@@ -19,6 +21,12 @@ class Score:
 
         self._name = name
         self._score = score
+    
+        # set time
+        now = datetime.now()
+        self._date = now.strftime("%Y-%m-%d")
+        self._time = now.strftime("%H:%M:%S")
+      
         
     @property
     def name(self):
