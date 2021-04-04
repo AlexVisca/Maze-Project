@@ -1,7 +1,9 @@
 import pygame
 from pygame.locals import *
 from controllers.game_controller import GameController
+from views.game_view import GameView
 import requests
+
 
 """
 Start Controller to generate the start screen
@@ -13,6 +15,7 @@ class StartController:
         self._window = None
         self._image = None
         self._game = GameController()
+        self._game_view = GameView()
         self._name = ''
         self.high_scores = self.get_highscores()
         
@@ -48,7 +51,7 @@ class StartController:
                         if self._name != '': #Otherwise "GUEST" is set as default name
                             self._game.set_player_name(self._name)
                         # start game!
-                        self._game.loop()
+                        self._game_view.start_game()
                         exit()
                     # when backspace is pressed, remove character from name
                     elif event.key == K_BACKSPACE:
