@@ -2,6 +2,10 @@
 import pygame
 
 class Maze:
+    """ Maze class
+
+    Stores object attributes
+    """
     def __init__(self):
         self.cells = list()
 
@@ -17,5 +21,5 @@ class Maze:
         self.generated = False
         self.end_coordinates = False
     
-    def cells():
+    def cells(self):
         return self.cells
