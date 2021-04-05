@@ -89,3 +89,17 @@ class GameController:
         text_rect = text_surface.get_rect()
         text_rect.center = (75, 25)
         return (text_surface, text_rect)
+    
+    def display_backpack(self, window, font):
+        # scale the coin image to be smaller
+        small_coin_image = pygame.transform.scale(self.maze.coin_image, (20, 20))
+        # display the text beside the coin showing the num of items in backpack
+        text = "x {}".format(str(self.player._backpack))
+        # green
+        colour = (0, 255, 0)
+        # creating the surface and location to render the text
+        text_surface = font.render(text, True, colour)
+        text_rect = text_surface.get_rect()
+        text_rect.center = (75, 50)
+        # pass info so game_view has everything it needs to render
+        return (text_surface, text_rect, small_coin_image)

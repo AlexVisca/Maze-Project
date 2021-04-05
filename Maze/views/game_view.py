@@ -27,6 +27,11 @@ class GameView:
         self._game.maze.draw(self._window)
         timer_text, timer_rect = self._game.display_timer(self._window, self._font)
         self._window.blit(timer_text, timer_rect)
+        
+        # render backpack
+        backpack_text, backpack_rect, small_coin_image = self._game.display_backpack(self._window, self._font)
+        self._window.blit(backpack_text, backpack_rect)
+        self._window.blit(small_coin_image, (40, 40))
         pygame.display.flip()
         
     def start_game(self):
