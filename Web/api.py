@@ -1,6 +1,6 @@
 # API
 from flask import Flask, request, jsonify
-from models.score_manager import ScoreManager
+from controllers.score_manager import ScoreManager
 from models.score import Score
 
 app = Flask(__name__)
