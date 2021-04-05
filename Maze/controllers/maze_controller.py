@@ -123,7 +123,10 @@ class MazeController:
         Returns:
             boolean: True if wall at coordinates, False if wall not at coordinates
         """
-        return coordinates in self.wall_coordinates
+        # check that x coordinate is in the range of 0 to the len of the cells in the x axis, same for y axis
+        if (0 <= coordinates[0] < len(self.cells[0])) and (0 <= coordinates[1] < len(self.cells)):
+            return coordinates in self.wall_coordinates
+        return True # coordinates out of map range
 
     def is_item(self, coordinates):
         """Return True if there is an item at coordinates
@@ -143,7 +146,7 @@ class MazeController:
             filename (string, optional): maze filename. Defaults to None.
         """
         if not filename:
-            filename = "m_lvl_1.txt"
+            filename = "m_lvl_4.txt"
         
         with open(filename, 'r+') as file:
             data = file.readlines()
