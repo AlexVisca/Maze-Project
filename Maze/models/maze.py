@@ -14,8 +14,10 @@ class Maze:
         self.items = list()
         
         # coin image
-        coin_image = pygame.image.load('Coin_Dollar.png')
+        coin_image = pygame.image.load('./images/Coin_Dollar.png')
+        wall_image = pygame.image.load('./images/wall_icon1.png')
         self.coin_image = pygame.transform.scale(coin_image, (50, 50))
+        self.wall_image = pygame.transform.scale(wall_image, (50, 50))
         
         # have random items been generated?
         self.generated = False

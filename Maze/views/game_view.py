@@ -20,17 +20,12 @@ class GameView:
         self._window = pygame.display.set_mode((self.__WIDTH, self.__HEIGHT)) #NOTE: changed to variables
         self._font = pygame.font.SysFont('arial', 18)
         self._clock = pygame.time.Clock()
-
-        # -- Block Image --
-        self._block = pygame.Surface((self.TILE_WIDTH, self.TILE_HEIGHT)) #NOTE: changed to variables
-        self._block.fill((255, 0, 0))
-        self._block.convert()
         
     def render_screen(self):
         self._window.fill((0, 0, 0))
         self._window.blit(self._game.player.image, self._game.player.rect)
-        self._game.maze.draw(self._window, self._block)
-        timer_text, timer_rect = self._game.display_timer( self._window, self._font)
+        self._game.maze.draw(self._window)
+        timer_text, timer_rect = self._game.display_timer(self._window, self._font)
         self._window.blit(timer_text, timer_rect)
         pygame.display.flip()
         

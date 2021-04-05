@@ -82,7 +82,7 @@ class GameController:
     
     def display_timer(self, window, font):
         text = "Timer: {}ms".format(pygame.time.get_ticks() - self._score.get_start_time())
-        colour = (255, 255, 255)
+        colour = (0, 255, 0)
         text_surface = font.render(text, True, colour)
         text_rect = text_surface.get_rect()
         text_rect.center = (75, 25)

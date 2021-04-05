@@ -21,20 +21,20 @@ class MazeController:
         self.empty_cells = maze.empty_cells
         self.items = maze.items
         
-        # coin image
+        # images
         self.coin_image = maze.coin_image
+        self.wall_image = maze.wall_image
         
         # have random items been generated?
         self.generated = maze.generated
         self.end_coordinates = maze.end_coordinates
 
-    def draw(self, window, image):
+    def draw(self, window):
         """
         Draw the maze in pygame.
         
         Args:
             window (pygame window): main game window
-            image (image): image to render as blocks
         """
         # populate pygame maze based on cells
         for y in range(0, len(self.cells)):
@@ -43,7 +43,7 @@ class MazeController:
                 cell = line[x]
                 if cell == 'X':
                     self.wall_coordinates.append((x,y))
-                    window.blit(image, (x*self.tile_width, y*self.tile_height))
+                    window.blit(self.wall_image, (x*self.tile_width, y*self.tile_height))
                 elif cell == 'I':
                     window.blit(self.coin_image, (x*self.tile_width, y*self.tile_height))
                 elif cell != 'E' and cell != 'P':
