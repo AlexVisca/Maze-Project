@@ -1,10 +1,14 @@
 # API
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 from controllers.score_manager import ScoreManager
 from models.score import Score
 
 app = Flask(__name__)
 score_manager = ScoreManager()
+
+@app.route('/')
+def list_all_stocks():
+    return render_template("scores.html", score_list=score_manager.get_scores())
 
 @app.route('/api/list')  # -- Default method 'GET'
 def list_all_scores():

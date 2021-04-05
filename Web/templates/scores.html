@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Demo</title>
+    <meta name="description" content="Demo website">
+    <meta name="author" content="Me">
+</head>
+<body>
+    {% block content %}
+    <h1>Highscores</h1>
+    <table style="width:100%">
+        <tr>
+          <th>USERNAME</th>
+          <th>SCORE</th>
+          <th>DATE</th>
+          <th>TIME</th>
+        </tr>
+        
+        {% for user in score_list %}
+        <tr>
+            <th>{{user['name']}}</th>
+            <th>{{ user['score']}}</th>
+            <th>{{user['date']}}</th>
+            <th>{{user['time']}}</th>
+        </tr>           
+        {% endfor %}
+     
+    </table>
+    {% endblock %}
+</body>
