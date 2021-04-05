@@ -7,7 +7,7 @@ app = Flask(__name__)
 score_manager = ScoreManager()
 
 @app.route('/')
-def list_all_stocks():
+def display_scores():
     return render_template("scores.html", score_list=score_manager.get_scores())
 
 @app.route('/api/list')  # -- Default method 'GET'
