@@ -55,7 +55,7 @@ class PlayerController():
                 if self._maze.is_item(want_to_move):
                     self.pickup(want_to_move)
                 # exit condition, if the player is moving down into the coordinates of the exit
-                if (want_to_move == self._maze.end_coordinates) and self.player._backpack == 4:
+                if (want_to_move == self._maze.end_coordinates):
                     self.end = True
                 self.player.rect.y += self.tile_height
                 
