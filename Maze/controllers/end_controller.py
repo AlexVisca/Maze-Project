@@ -57,14 +57,15 @@ class EndController:
         """
         Send the players name and score to the server/api
         """
-        
-        response = requests.put(
-            'http://localhost:5000/api/new', 
-            json=self._score.__dict__()
-        )
-        if response.status_code != 204: # if the server did not accept the new score
-            print("failed to update scoreboard")
-            
+        try:
+            response = requests.put(
+                'http://localhost:5000/api/new', 
+                json=self._score.__dict__()
+            )
+            if response.status_code != 204: # if the server did not accept the new score
+                print("failed to update scoreboard")
+        except:
+            print("failed to update scoreboard, is the server running?")
     
     def render_score(self):
         center = (400 // 2, 400 // 2)

@@ -55,7 +55,9 @@ class Score:
         """
         score_dict = dict(
             name=self._name,
-            score=self._score
+            score=self._score,
+            date=self._date,
+            time=self._time
         )
         return score_dict
     
@@ -78,3 +80,14 @@ class Score:
         """
         if not other.score >= self.score:
             return True
+
+    def set_time_and_date(self, time, date):
+        """Overwrite time and date properties. Only do this when readind from Json files
+        and recreating Score instances.
+
+        Args:
+            time (String): %H:%M:%S
+            date (String): "%Y-%m-%d"
+        """
+        self._time = time
+        self._date = date

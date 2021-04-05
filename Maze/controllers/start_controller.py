@@ -68,12 +68,16 @@ class StartController:
         Returns:
             list of dicts: response from server a list of dictionaires that have name and scores
         """
-        response = requests.get('http://localhost:5000/api/list')
-        if response.status_code == 200:
-            response_dict = response.json()
-            return response_dict.get("scores")
-        else:
-            print("failed to get high scores") # instead of raising error, just dont show highscores
+        try:
+            response = requests.get('http://localhost:5000/api/list')
+            if response.status_code == 200:
+                response_dict = response.json()
+                return response_dict.get("scores")
+            else:
+                print("failed to get high scores") # instead of raising error, just dont show highscores
+                return []
+        except:
+            print("failed to get high scores, is the server running?") # instead of raising error, just dont show highscores
             return []
         
     def render_input(self):
