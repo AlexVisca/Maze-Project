@@ -7,7 +7,7 @@ class Maze:
     Stores object attributes
     """
     def __init__(self):
-        self.cells = list()
+        self._cells = list()
 
         self.wall_coordinates = list()
         self.empty_cells = list()
@@ -24,4 +24,4 @@ class Maze:
         self.end_coordinates = False
     
     def cells(self):
-        return self.cells
+        return self._cells

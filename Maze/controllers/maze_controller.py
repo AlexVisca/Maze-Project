@@ -14,7 +14,7 @@ class MazeController:
         self.tile_width = tile_width
         self.tile_height = tile_height
         
-        self.cells = maze.cells
+        self.cells = maze.cells()
         self.load_from_file()
 
         self.wall_coordinates = maze.wall_coordinates
@@ -146,7 +146,7 @@ class MazeController:
             filename (string, optional): maze filename. Defaults to None.
         """
         if not filename:
-            filename = "m_lvl_1.txt"
+            filename = "m_lvl_2.txt"
         
         with open(filename, 'r+') as file:
             data = file.readlines()

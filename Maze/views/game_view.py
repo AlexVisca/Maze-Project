@@ -3,7 +3,7 @@ from pygame.locals import *
 from controllers.game_controller import GameController
 
 class GameView:
-    def __init__(self, seconds_till_fail=15):
+    def __init__(self, seconds_till_fail=30):
         """Render the game
 
         Args:
