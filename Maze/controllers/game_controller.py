@@ -72,11 +72,11 @@ class GameController:
         """
         return self.player_controller.end
     
-    def end_game(self):
+    def end_game(self, milliseconds_till_fail):
         """Ends the game buy starting the End Controller
         """
         self._score.end_timer() # calculate score
-        if self.player._backpack != 4 or self._score.get_score() > 100: #arbitrary
+        if self.player._backpack != 4 or self.get_time() > milliseconds_till_fail: #arbitrary
             self._score.set_score(1000) # overwrite score with default score if backpack isnt full
         end_contoller = EndController(self._score)
         end_contoller.loop()
