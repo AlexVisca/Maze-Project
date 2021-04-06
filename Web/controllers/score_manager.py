@@ -69,7 +69,7 @@ class ScoreManager:
         """
         with open('scores.json', 'w') as file:
             scores = self.pack()
-            json.dump(scores, file)
+            json.dump(scores, file, ensure_ascii=False, indent=3)
     
     def read_from_json(self):
         """Read the scores from score.json, unpack them into the cprrect format and 
