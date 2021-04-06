@@ -3,17 +3,22 @@ from pygame.locals import *
 from controllers.game_controller import GameController
 
 class GameView:
-    def __init__(self):
+    def __init__(self, seconds_till_fail=30):
+        """Render the game
+
+        Args:
+            seconds_till_fail (int, optional): 
+            The amount of seconds the player has until they auto fail. Defaults to 30.
+        """
         self._running = True
         self._window = None
         self._image = None
         self._block = None
+        self._seconds_till_fail = seconds_till_fail
         
         self._game = GameController()
         self.__WIDTH, self.__HEIGHT = self._game.get_game_dimensions()
         self.TILE_WIDTH, self.TILE_HEIGHT = self._game.get_tile_dimensions()
-
-        
         
     def run(self):
         pygame.init()
@@ -53,9 +58,10 @@ class GameView:
             #NOTE: By ending the game here (in the loop instead of in player controller)
             # There may be a slight lag when you complete the game because it will not end until the next render
             # and will add some time to your total score
-            if self._game.game_over():
+            #Note: seconds are converted to milliseconds
+            if self._game.game_over() or self._game.get_time() > (self._seconds_till_fail * 1000): 
                 self._game.end_game()
-                
+            
             self._game.keypress()
             self.render_screen()
 

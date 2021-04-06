@@ -146,7 +146,7 @@ class MazeController:
             filename (string, optional): maze filename. Defaults to None.
         """
         if not filename:
-            filename = "m_lvl_4.txt"
+            filename = "m_lvl_1.txt"
         
         with open(filename, 'r+') as file:
             data = file.readlines()

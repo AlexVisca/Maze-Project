@@ -3,7 +3,7 @@ import pygame
 class Score:
     def __init__(self):
         self._name = "GUEST" # default name
-        self._score = 100 # default score
+        self._score = 1000 # default score
         # to calculate score
         self._start_time = pygame.time.get_ticks()/1000 # in seconds
         self._end_time = None
