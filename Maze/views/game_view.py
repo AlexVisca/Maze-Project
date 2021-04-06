@@ -3,7 +3,7 @@ from pygame.locals import *
 from controllers.game_controller import GameController
 
 class GameView:
-    def __init__(self, seconds_till_fail=20):
+    def __init__(self, seconds_till_fail=15):
         """Render the game
 
         Args:
@@ -58,9 +58,8 @@ class GameView:
             #NOTE: By ending the game here (in the loop instead of in player controller)
             # There may be a slight lag when you complete the game because it will not end until the next render
             # and will add some time to your total score
-            #NOTE: seconds are converted to milliseconds
-            if self._game.game_over() or self._game.get_time() > (self._seconds_till_fail * 1000): 
-                self._game.end_game(self._seconds_till_fail * 1000)
+            if self._game.game_over() or (self._game.get_time() > self._seconds_till_fail): 
+                self._game.end_game(self._seconds_till_fail)
             
             self._game.keypress()
             self.render_screen()

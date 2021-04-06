@@ -72,11 +72,11 @@ class GameController:
         """
         return self.player_controller.end
     
-    def end_game(self, milliseconds_till_fail):
+    def end_game(self, seconds_till_fail):
         """Ends the game buy starting the End Controller
         """
         self._score.end_timer() # calculate score
-        if self.player._backpack != 4 or self.get_time() > milliseconds_till_fail: #arbitrary
+        if self.player._backpack != 4 or self.get_time() > seconds_till_fail: #arbitrary
             self._score.set_score(1000) # overwrite score with default score if backpack isnt full
         end_contoller = EndController(self._score)
         end_contoller.loop()
@@ -87,11 +87,11 @@ class GameController:
 
         Returns:
             float: time game has been running in milliseconds
-        """
-        return pygame.time.get_ticks() - self._score.get_start_time()
+        """        
+        return (pygame.time.get_ticks()/1000) - self._score.get_start_time()
     
     def display_timer(self, window, font):
-        text = "Timer: {}s".format(self.get_time()/1000) # convert to seconds
+        text = "Timer: {}s".format(str(round(self.get_time(),1))) # round to 1 decimal point
         colour = (0, 255, 0)
         text_surface = font.render(text, True, colour)
         text_rect = text_surface.get_rect()

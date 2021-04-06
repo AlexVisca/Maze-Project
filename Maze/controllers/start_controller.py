@@ -14,7 +14,7 @@ class StartController:
         self._running = True
         self._window = None
         self._image = None
-        self._game_view = GameView()
+        self._game_view = None
         self._name = ''
         self.high_scores = self.get_highscores()
         
@@ -47,6 +47,9 @@ class StartController:
                     if event.key in (K_ESCAPE, K_q):
                         self._running = False
                     elif event.key == K_RETURN:
+                        #NOTE: we wait to initalize GameView until enter 
+                        # is pressed because it starts the game timer
+                        self._game_view = GameView() 
                         if self._name != '': #Otherwise "GUEST" is set as default name
                             self._game_view._game.set_player_name(self._name)
                         

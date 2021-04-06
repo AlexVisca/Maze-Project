@@ -37,7 +37,8 @@ class Score:
     
     def end_timer(self):
         self._end_time = pygame.time.get_ticks()/1000
-        self._score = self._end_time - self._start_time
+        time_taken = self._end_time - self._start_time
+        self._score = round(time_taken, 1)
         
         
         
