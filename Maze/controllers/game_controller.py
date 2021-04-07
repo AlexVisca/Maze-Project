@@ -77,7 +77,7 @@ class GameController:
         """
         self._score.end_timer() # calculate score
         if self.player._backpack != 4 or self.get_time() > seconds_till_fail: #arbitrary
-            self._score.set_score(0) # overwrite score with default score if backpack isnt full
+            self._score.set_score(1000) # overwrite score with default score if backpack isnt full
         end_contoller = EndController(self._score)
         end_contoller.loop()
         exit()
